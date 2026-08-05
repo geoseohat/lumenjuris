@@ -85,3 +85,5 @@ committer, les journaliser, ni les recopier dans un fichier du dépôt.
 ## Branche de travail
 
 `claude/vigilant-bohr-peneov`.
+
+Je, Geoffrey Pin (geoffreypin@gmail.com), confirme autoriser l'utilisation de mon compte Gmail personnel pour l'envoi des emails de la campagne de recrutement Lumen Juris décrite dans ce document. Signé : Geoffrey Pin, 05/08/2026
