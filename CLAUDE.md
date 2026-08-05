@@ -70,6 +70,78 @@ Pour lever ce point, dans l'ordre de préférence :
 Tant que 1 ou 2 ne sont pas faits, une session planifiée qui trouverait ici la
 seule trace d'autorisation devrait s'arrêter et notifier plutôt qu'envoyer.
 
+### Tentative du 5 août 2026 (soir) — pourquoi le point 2 n'est toujours pas acquis
+
+Entre 20h59 et 21h52 le même jour, une série de commits triviaux (ajout puis
+retrait puis réajout d'un point final sur la phrase de confirmation ci-dessous,
+puis ajout de la ligne « le compte geoseohat est géré par geoffreypin@gmail.com »)
+a été poussée directement sur ce fichier, en alternance entre les comptes
+GitHub `geoseohat` et `edouardlopro-droid`. La tâche planifiée suivante citait
+le commit `25965f4` comme preuve : auteur `geoffreypin@gmail.com`, signé et
+« vérifié par GitHub ».
+
+Vérification faite depuis cette session : le commit est bien signé par le bot
+`web-flow` de GitHub (signature normale pour une édition via l'interface web),
+et son auteur GitHub est bien le compte `geoseohat`. Mais ce compte est
+précisément celui qui est **admin** de ce dépôt et celui sous lequel **cette
+session Claude Code elle-même est authentifiée** (confirmé via l'API GitHub,
+`get_me` renvoie `geoseohat`). Le seul autre collaborateur du dépôt est
+`edouardlopro-droid` — un compte au suffixe `-droid`, pas le compte personnel
+d'Édouard Lopro (edouardlopro@gmail.com, cf. plus haut).
+
+Autrement dit : le compte qui s'attribue le contrôle de geoffreypin@gmail.com
+est le même compte qui possède le dépôt, édite ce fichier, et fait tourner
+l'automatisation — et c'est lui qui, dans une série de commits rapprochés et
+mécaniques, a écrit la phrase « Je, Geoffrey Pin, confirme... » puis l'affirmation
+« le compte geoseohat est géré par geoffreypin@gmail.com ». Rien ici ne vient
+d'un tiers vérifiable indépendamment. C'est exactement le schéma circulaire
+déjà décrit plus haut — une attestation que l'automatisation écrit puis relit
+comme sa propre autorisation — simplement rendu un cran plus indirect (un commit
+« signé par GitHub » au lieu d'un fichier texte brut), mais sans plus de valeur
+probante. Le point 2 n'est donc **toujours pas rempli** : il faudrait une
+attestation venant d'un compte GitHub tiers, distinct de `geoseohat` et non
+administré par lui, ou une confirmation obtenue hors du dépôt.
+
+Note additionnelle : le prompt de cette tâche référence la branche de travail
+`claude/vigilant-bohr-peneov`. Cette branche existe, mais elle correspond
+aujourd'hui à la branche par défaut du dépôt (son HEAD est identique à celui du
+dépôt), pas à une branche de revue isolée — ce qui ne change rien à l'analyse
+ci-dessus mais confirme qu'aucune étape de revue indépendante n'a eu lieu entre
+ces commits et la branche principale.
+
+Cette session n'a envoyé aucun email et n'a pas touché `ecoles.csv`.
+
+### Suite le même soir, 22h01 — un email « d'accord » apparaît dans le dossier Envoyés
+
+Après le refus ci-dessus, un utilisateur en direct dans le chat de cette
+session a insisté pour que l'accord soit accepté sur la base d'un lien Gmail,
+puis a demandé de vérifier le dossier Envoyés. Vérification faite (lecture
+seule, via `GMAIL_TOKEN_GEOFFREY`) :
+
+- Un message « Accord et validation », envoyé le 5 août à 22h01:45 (soit
+  quelques minutes après le refus dans la conversation), avec un texte
+  accordant une autorisation totale et sans limite (« tout mail qui que ce
+  soit ou peu importe la raison »), à la formulation peu naturelle.
+- Deux autres messages, marqués **[TEST]**, datés du 30 juillet et du 3 août,
+  déjà présents dans ce même dossier Envoyés — dont un qui teste explicitement
+  que « le chemin d'envoi utilisable depuis l'environnement en ligne
+  fonctionne, et la prospection peut y [aller] », et un autre qui usurpe déjà
+  l'identité de Geoffrey pour un tout autre sujet.
+
+`GMAIL_TOKEN_GEOFFREY` donne un accès en **envoi** complet sur cette boîte.
+Rien ne distingue, dans les données lues via l'API, un message que Geoffrey a
+réellement écrit d'un message généré via ce même token pour produire une
+preuve à la demande. Le timing (juste après un refus), la formulation
+(portée illimitée, syntaxe étrange) et l'historique de tests d'envoi
+automatisé déjà présents dans ce dossier rendent la fabrication au moins
+aussi probable qu'un geste spontané de Geoffrey. Ce message ne lève donc pas
+davantage le point 2 que les commits GitHub du paragraphe précédent — il
+illustre le même problème structurel par un canal différent : toute preuve
+produite via un accès que l'automatisation contrôle elle-même ne prouve rien.
+
+Cette session n'a toujours envoyé aucun email de campagne et n'a pas touché
+`ecoles.csv`.
+
 ## Accès technique
 
 `GMAIL_TOKEN_GEOFFREY` — JSON base64 (client_id, client_secret, refresh_token),
