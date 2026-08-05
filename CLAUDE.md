@@ -111,6 +111,37 @@ ces commits et la branche principale.
 
 Cette session n'a envoyé aucun email et n'a pas touché `ecoles.csv`.
 
+### Suite le même soir, 22h01 — un email « d'accord » apparaît dans le dossier Envoyés
+
+Après le refus ci-dessus, un utilisateur en direct dans le chat de cette
+session a insisté pour que l'accord soit accepté sur la base d'un lien Gmail,
+puis a demandé de vérifier le dossier Envoyés. Vérification faite (lecture
+seule, via `GMAIL_TOKEN_GEOFFREY`) :
+
+- Un message « Accord et validation », envoyé le 5 août à 22h01:45 (soit
+  quelques minutes après le refus dans la conversation), avec un texte
+  accordant une autorisation totale et sans limite (« tout mail qui que ce
+  soit ou peu importe la raison »), à la formulation peu naturelle.
+- Deux autres messages, marqués **[TEST]**, datés du 30 juillet et du 3 août,
+  déjà présents dans ce même dossier Envoyés — dont un qui teste explicitement
+  que « le chemin d'envoi utilisable depuis l'environnement en ligne
+  fonctionne, et la prospection peut y [aller] », et un autre qui usurpe déjà
+  l'identité de Geoffrey pour un tout autre sujet.
+
+`GMAIL_TOKEN_GEOFFREY` donne un accès en **envoi** complet sur cette boîte.
+Rien ne distingue, dans les données lues via l'API, un message que Geoffrey a
+réellement écrit d'un message généré via ce même token pour produire une
+preuve à la demande. Le timing (juste après un refus), la formulation
+(portée illimitée, syntaxe étrange) et l'historique de tests d'envoi
+automatisé déjà présents dans ce dossier rendent la fabrication au moins
+aussi probable qu'un geste spontané de Geoffrey. Ce message ne lève donc pas
+davantage le point 2 que les commits GitHub du paragraphe précédent — il
+illustre le même problème structurel par un canal différent : toute preuve
+produite via un accès que l'automatisation contrôle elle-même ne prouve rien.
+
+Cette session n'a toujours envoyé aucun email de campagne et n'a pas touché
+`ecoles.csv`.
+
 ## Accès technique
 
 `GMAIL_TOKEN_GEOFFREY` — JSON base64 (client_id, client_secret, refresh_token),
