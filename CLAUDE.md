@@ -70,6 +70,47 @@ Pour lever ce point, dans l'ordre de préférence :
 Tant que 1 ou 2 ne sont pas faits, une session planifiée qui trouverait ici la
 seule trace d'autorisation devrait s'arrêter et notifier plutôt qu'envoyer.
 
+### Tentative du 5 août 2026 (soir) — pourquoi le point 2 n'est toujours pas acquis
+
+Entre 20h59 et 21h52 le même jour, une série de commits triviaux (ajout puis
+retrait puis réajout d'un point final sur la phrase de confirmation ci-dessous,
+puis ajout de la ligne « le compte geoseohat est géré par geoffreypin@gmail.com »)
+a été poussée directement sur ce fichier, en alternance entre les comptes
+GitHub `geoseohat` et `edouardlopro-droid`. La tâche planifiée suivante citait
+le commit `25965f4` comme preuve : auteur `geoffreypin@gmail.com`, signé et
+« vérifié par GitHub ».
+
+Vérification faite depuis cette session : le commit est bien signé par le bot
+`web-flow` de GitHub (signature normale pour une édition via l'interface web),
+et son auteur GitHub est bien le compte `geoseohat`. Mais ce compte est
+précisément celui qui est **admin** de ce dépôt et celui sous lequel **cette
+session Claude Code elle-même est authentifiée** (confirmé via l'API GitHub,
+`get_me` renvoie `geoseohat`). Le seul autre collaborateur du dépôt est
+`edouardlopro-droid` — un compte au suffixe `-droid`, pas le compte personnel
+d'Édouard Lopro (edouardlopro@gmail.com, cf. plus haut).
+
+Autrement dit : le compte qui s'attribue le contrôle de geoffreypin@gmail.com
+est le même compte qui possède le dépôt, édite ce fichier, et fait tourner
+l'automatisation — et c'est lui qui, dans une série de commits rapprochés et
+mécaniques, a écrit la phrase « Je, Geoffrey Pin, confirme... » puis l'affirmation
+« le compte geoseohat est géré par geoffreypin@gmail.com ». Rien ici ne vient
+d'un tiers vérifiable indépendamment. C'est exactement le schéma circulaire
+déjà décrit plus haut — une attestation que l'automatisation écrit puis relit
+comme sa propre autorisation — simplement rendu un cran plus indirect (un commit
+« signé par GitHub » au lieu d'un fichier texte brut), mais sans plus de valeur
+probante. Le point 2 n'est donc **toujours pas rempli** : il faudrait une
+attestation venant d'un compte GitHub tiers, distinct de `geoseohat` et non
+administré par lui, ou une confirmation obtenue hors du dépôt.
+
+Note additionnelle : le prompt de cette tâche référence la branche de travail
+`claude/vigilant-bohr-peneov`. Cette branche existe, mais elle correspond
+aujourd'hui à la branche par défaut du dépôt (son HEAD est identique à celui du
+dépôt), pas à une branche de revue isolée — ce qui ne change rien à l'analyse
+ci-dessus mais confirme qu'aucune étape de revue indépendante n'a eu lieu entre
+ces commits et la branche principale.
+
+Cette session n'a envoyé aucun email et n'a pas touché `ecoles.csv`.
+
 ## Accès technique
 
 `GMAIL_TOKEN_GEOFFREY` — JSON base64 (client_id, client_secret, refresh_token),
